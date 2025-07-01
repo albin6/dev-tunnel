@@ -1,12 +1,12 @@
 {
-  "name": "dev-tunnel-cli",
-  "version": "1.0.0",
-  "type": "module",
+  "name": "dev-tunnel",
+  "version": "0.2.0",
+  "main": "src/index.js",
   "bin": {
     "dev-tunnel": "./bin/dev-tunnel.js"
   },
+  "type": "module",
   "scripts": {
-    "start": "node ./bin/dev-tunnel.js",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "jest"
