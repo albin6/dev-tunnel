@@ -1,0 +1,31 @@
+{
+  "name": "dev-tunnel-cli",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "dev-tunnel": "./bin/dev-tunnel.js"
+  },
+  "scripts": {
+    "start": "node ./bin/dev-tunnel.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "clipboardy": "^4.0.0",
+    "inquirer": "^12.6.3",
+    "ngrok": "^5.0.0-beta.2",
+    "open": "^10.1.2",
+    "ora": "^8.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.30.0",
+    "jest": "^30.0.3",
+    "prettier": "^3.6.2"
+  }
+}
