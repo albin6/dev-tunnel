@@ -5,8 +5,7 @@ Perfect for web dev students, demo sharing, or quick mobile testing.
 
 ---
 
-## ✨ Features
-
+## Features
 
 - Automatically sets up your **Ngrok authtoken**
 - Exposes your **local server to a public URL**
@@ -18,7 +17,7 @@ Perfect for web dev students, demo sharing, or quick mobile testing.
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```bash
 npm install -g dev-tunnel
