@@ -9,8 +9,8 @@ export function patchViteConfig(projectDir = process.cwd()) {
   const filePath = fs.existsSync(viteFileTs)
     ? viteFileTs
     : fs.existsSync(viteFileJs)
-    ? viteFileJs
-    : null;
+      ? viteFileJs
+      : null;
 
   if (!filePath) {
     logInfo('Vite config not found. Skipping patch.');

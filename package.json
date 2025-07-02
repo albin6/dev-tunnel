@@ -11,13 +11,18 @@
     "format": "prettier --write .",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": ["cli", "ngrok", "port forwarding", "vite", "express", "local tunnel"],
+  "author": "Albin Aji",
+  "repository": {
+     "type": "git",
+     "url": "https://github.com/albin6/dev-tunnel"
+   },
+  "license": "MIT",
+  "description": "CLI tool to expose local dev servers using Ngrok",
   "dependencies": {
     "chalk": "^5.4.1",
     "clipboardy": "^4.0.0",
+    "commander": "^14.0.0",
     "inquirer": "^12.6.3",
     "ngrok": "^5.0.0-beta.2",
     "open": "^10.1.2",
