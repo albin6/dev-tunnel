@@ -1,0 +1,7 @@
+tests/
+*.test.js
+jest.config.js
+.eslintrc
+.prettierrc
+.prettierignore
+node_modules/
