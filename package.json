@@ -1,5 +1,5 @@
 {
-  "name": "dev-tunnel",
+  "name": "@npmx86/dev-tunnel",
   "version": "0.2.0",
   "main": "src/index.js",
   "bin": {
@@ -11,12 +11,19 @@
     "format": "prettier --write .",
     "test": "jest"
   },
-  "keywords": ["cli", "ngrok", "port forwarding", "vite", "express", "local tunnel"],
+  "keywords": [
+    "cli",
+    "ngrok",
+    "port forwarding",
+    "vite",
+    "express",
+    "local tunnel"
+  ],
   "author": "Albin Aji",
   "repository": {
-     "type": "git",
-     "url": "https://github.com/albin6/dev-tunnel"
-   },
+    "type": "git",
+    "url": "https://github.com/albin6/dev-tunnel"
+  },
   "license": "MIT",
   "description": "CLI tool to expose local dev servers using Ngrok",
   "dependencies": {
