@@ -17,5 +17,5 @@ export async function ensureAuthtoken() {
 
   await ngrok.authtoken(authtoken);
   saveRcConfig({ ...config, authtoken });
-  logSuccess('✅ Authtoken saved and configured successfully.');
+  logSuccess('Authtoken saved and configured successfully.');
 }
