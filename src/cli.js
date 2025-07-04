@@ -25,7 +25,8 @@ export async function runCli() {
     openBrowser: options.open,
   });
 
-  if (detected === 'vite') await patchViteConfig(process.cwd(), url);
+  if (detected === 'vite')
+    await patchViteConfig(process.cwd(), url.split('//')[1]);
   else if (detected === 'express-ejs')
     console.log('Express + EJS project detected. No patching needed.');
   else if (detected === 'express')
