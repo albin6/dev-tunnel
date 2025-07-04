@@ -15,4 +15,6 @@ export async function createTunnel({ port, openBrowser }) {
     await open(url);
     logInfo('🌍 URL opened in browser.');
   }
+
+  return url;
 }

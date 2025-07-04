@@ -20,7 +20,12 @@ export async function runCli() {
   const detected = options.framework || detectFramework();
   console.log(`🔍 Detected framework: ${detected}`);
 
-  if (detected === 'vite') await patchViteConfig();
+  const url = await createTunnel({
+    port: options.port,
+    openBrowser: options.open,
+  });
+
+  if (detected === 'vite') await patchViteConfig(process.cwd(), url);
   else if (detected === 'express-ejs')
     console.log('Express + EJS project detected. No patching needed.');
   else if (detected === 'express')
@@ -30,6 +35,4 @@ export async function runCli() {
       `${detected.charAt(0).toUpperCase() + detected.slice(1)} project detected. Proceeding with port forwarding.`
     );
   } else console.log('⚠️ Framework unknown. Proceeding without patching.');
-
-  await createTunnel({ port: options.port, openBrowser: options.open });
 }
