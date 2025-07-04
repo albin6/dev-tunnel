@@ -23,28 +23,27 @@ export function patchViteConfig(projectDir = process.cwd(), newHost) {
   }
 
   let content = fs.readFileSync(filePath, 'utf-8');
+  const allowedHostsRegex = /allowedHosts\s*:\s*\[\s*["']([^"']+)["']\s*\]/;
 
-  const allowedHostsLine = `allowedHosts: ["${newHost}"],`;
-
-  if (content.includes('allowedHosts')) {
-    // Replace existing allowedHosts value
+  if (allowedHostsRegex.test(content)) {
+    // ✅ Replace just the domain inside the allowedHosts array
     content = content.replace(
-      /allowedHosts\s*:\s*\[[^\]]*\]/,
+      allowedHostsRegex,
       `allowedHosts: ["${newHost}"]`
     );
-    logInfo('Replaced existing allowedHosts URL.');
+    logInfo('Replaced existing allowedHosts domain.');
   } else if (/server\s*:\s*{[^}]*}/s.test(content)) {
-    // Insert allowedHosts inside existing server block
+    // ✅ Insert allowedHosts line if server block exists but no allowedHosts
     content = content.replace(/server\s*:\s*{([^}]*)}/s, (match, inner) => {
-      return `server: {\n    ${allowedHostsLine}\n    ${inner.trim()}\n  }`;
+      return `server: {\n    allowedHosts: ["${newHost}"],\n    ${inner.trim()}\n  }`;
     });
     logInfo('Inserted allowedHosts into existing server config.');
   } else {
-    // No server block — add full export (not common but fallback)
-    content += `\nexport default {\n  server: {\n    ${allowedHostsLine}\n  }\n};\n`;
+    // ✅ Fallback: No server block found, add whole block
+    content += `\nexport default {\n  server: {\n    allowedHosts: ["${newHost}"]\n  }\n};\n`;
     logInfo('Added new server config with allowedHosts.');
   }
 
   fs.writeFileSync(filePath, content);
-  logSuccess(`✔️ Patched Vite config with allowedHost: ${newHost}`);
+  logSuccess(`✔️ Patched Vite config with allowedHost: "${newHost}"`);
 }
