@@ -5,6 +5,15 @@ import { createTunnel } from './tunnel/ngrok.js';
 import { detectFramework } from './framework/detect.js';
 import { patchFrameworkConfig } from './framework/patch.js';
 
+const FRAMEWORKS_REQUIRE_PORT_PROMPT = [
+  'express',
+  'express-ejs',
+  'spring',
+  'django',
+  'go-gin',
+  'dotnet',
+];
+
 export async function runCli() {
   program
     .name('dev-tunnel')
@@ -21,27 +30,25 @@ export async function runCli() {
   const detected = options.framework || detectFramework();
   console.log(`🔍 Detected framework: ${detected}`);
 
-  // Define which frameworks need patching
-  const patchableFrameworks = ['vite', 'express-ejs', 'django'];
-
-  // Prompt for port if not given and framework doesn't need patching
+  // Determine the port (from flag, prompt, or default)
   let port = options.port;
-  if (!port && !patchableFrameworks.includes(detected)) {
-    const { userPort } = await inquirer.prompt([
-      {
-        type: 'input',
-        name: 'userPort',
-        message: 'Enter the port your server is running on:',
-        default: '3000',
-        validate: (input) =>
-          /^\d+$/.test(input) ? true : 'Please enter a valid numeric port.',
-      },
-    ]);
-    port = userPort;
-  }
 
-  // Default to 5173 only if not provided and patching is expected
-  if (!port) port = '5173';
+  if (!port) {
+    if (FRAMEWORKS_REQUIRE_PORT_PROMPT.includes(detected)) {
+      const response = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'port',
+          message: `Enter the port your ${detected} server is running on:`,
+          validate: (input) =>
+            /^\d+$/.test(input) ? true : 'Please enter a valid numeric port',
+        },
+      ]);
+      port = response.port;
+    } else {
+      port = '5173'; // default for Vite and similar tools
+    }
+  }
 
   console.log(`ℹ️  Starting tunnel for http://localhost:${port} ...`);
 
@@ -50,6 +57,6 @@ export async function runCli() {
     openBrowser: options.open,
   });
 
-  const host = url.split('//')[1];
-  await patchFrameworkConfig(detected, host);
+  const ngrokHost = url.split('//')[1];
+  await patchFrameworkConfig(detected, ngrokHost);
 }
