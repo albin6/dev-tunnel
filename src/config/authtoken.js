@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
-import ngrok from 'ngrok';
 import { getRcConfig, saveRcConfig } from './rcfile.js';
 import { logSuccess } from '../utils/logger.js';
+import { config } from 'process';
 
 export async function ensureAuthtoken() {
   const config = getRcConfig();
@@ -15,7 +15,7 @@ export async function ensureAuthtoken() {
     },
   ]);
 
-  await ngrok.authtoken(authtoken);
+  // Store the authtoken in the config file to be used later
   saveRcConfig({ ...config, authtoken });
   logSuccess('Authtoken saved and configured successfully.');
 }
