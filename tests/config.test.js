@@ -1,21 +1,23 @@
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import { getConfig } from '../lib/config.js';
+import { getRcConfig, saveRcConfig } from '../src/config/rcfile.js';
 
 const CONFIG_PATH = path.join(os.homedir(), '.dev-tunnelrc');
 
-describe('getConfig()', () => {
+describe('getRcConfig()', () => {
   beforeAll(() => {
-    fs.writeFileSync(CONFIG_PATH, JSON.stringify({ authtoken: 'test-token' }));
+    saveRcConfig({ authtoken: 'test-token' });
   });
 
   afterAll(() => {
-    fs.unlinkSync(CONFIG_PATH);
+    if (fs.existsSync(CONFIG_PATH)) {
+      fs.unlinkSync(CONFIG_PATH);
+    }
   });
 
   it('should return the stored authtoken', () => {
-    const config = getConfig();
+    const config = getRcConfig();
     expect(config.authtoken).toBe('test-token');
   });
 });

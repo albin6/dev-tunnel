@@ -30,12 +30,16 @@
     "chalk": "^5.4.1",
     "clipboardy": "^4.0.0",
     "commander": "^14.0.0",
+    "express": "^5.1.0",
     "inquirer": "^12.6.3",
-    "ngrok": "^5.0.0-beta.2",
+    "ngrok": "^4.3.3",
     "open": "^10.1.2",
     "ora": "^8.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "babel-jest": "^30.2.0",
     "eslint": "^9.30.0",
     "jest": "^30.0.3",
     "prettier": "^3.6.2"
